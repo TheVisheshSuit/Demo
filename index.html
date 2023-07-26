@@ -1,86 +1,61 @@
-def generate_content_plan(target_keyword):
-    # Meta Title
-    meta_title = f"{target_keyword} - [Brand Name or Context]"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JPG to PNG Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .image-display {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JPG to PNG Converter</h1>
+        <input type="file" id="fileInput" accept=".jpg" />
+        <button onclick="convertImage()">Download as PNG</button>
+        <div class="image-display">
+            <h3>Converted Image:</h3>
+            <img id="outputImage" />
+        </div>
+    </div>
 
-    # Meta Description
-    meta_description = f"Find all you need to know about {target_keyword}. Learn [benefit or value proposition] and more. Click here!"
+    <script>
+        function convertImage() {
+            const fileInput = document.getElementById("fileInput");
 
-    # FAQs
-    faqs = [
-        "What is [Keyword] and how does it work?",
-        "What are the benefits of using [Keyword]?",
-        "Is [Keyword] suitable for beginners?",
-        "How can I get started with [Keyword]?",
-        "Are there any alternatives to [Keyword]?",
-        "What are the key features of [Keyword]?",
-        "How does [Keyword] compare to similar products?",
-        "Can I use [Keyword] for [specific use case]?",
-        "Are there any discounts or promotions for [Keyword]?",
-        "What is the refund policy for [Keyword]?",
-    ]
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
 
-    # Related Queries
-    related_queries = [
-        f"{target_keyword} reviews",
-        f"{target_keyword} tutorial",
-        f"{target_keyword} vs. competitors",
-        f"{target_keyword} benefits",
-        f"{target_keyword} pricing",
-        f"{target_keyword} alternatives",
-        f"{target_keyword} [specific feature]",
-        f"{target_keyword} [specific use case]",
-        f"{target_keyword} [specific problem it solves]",
-        f"{target_keyword} [related topic]",
-    ]
+                reader.onload = function (e) {
+                    const image = new Image();
+                    image.src = e.target.result;
 
-    # Long Tail Keywords
-    long_tail_keywords = [
-        "best {target_keyword} for [specific use case]",
-        "[specific problem] with {target_keyword}",
-        "top {target_keyword} to buy",
-        "affordable {target_keyword} for small businesses",
-        "how to choose the right {target_keyword}",
-        "most popular {target_keyword} in [year]",
-        "benefits of using {target_keyword} in [industry]",
-        "quick start guide to {target_keyword}",
-        "how {target_keyword} can help your [business/industry]",
-        "common misconceptions about {target_keyword}",
-    ]
+                    image.onload = function () {
+                        const canvas = document.createElement("canvas");
+                        canvas.width = image.width;
+                        canvas.height = image.height;
 
-    # Keywords Table
-    keywords_table = [
-        {"Keyword": target_keyword, "Keyword Intent": "[intent]", "Frequency": 2},
-        # Add other keywords here
-    ]
+                        const ctx = canvas.getContext("2d");
+                        ctx.drawImage(image, 0, 0);
 
-    # Entities
-    entities = [
-        "Entity 1",
-        "Entity 2",
-        "Entity 3",
-        "Entity 4",
-        "Entity 5",
-        "Entity 6",
-        "Entity 7",
-        "Entity 8",
-        "Entity 9",
-        "Entity 10",
-    ]
+                        // Convert the canvas image to PNG format
+                        const downloadLink = document.createElement("a");
+                        downloadLink.download = "converted_image.png";
+                        downloadLink.href = canvas.toDataURL("image/png");
+                        downloadLink.click();
+                    };
+                };
 
-    # Content Plan Dictionary
-    content_plan = {
-        "Meta Title": meta_title,
-        "Meta Description": meta_description,
-        "FAQs": faqs,
-        "Related Queries": related_queries,
-        "Long Tail Keywords": long_tail_keywords,
-        "Keywords": keywords_table,
-        "Entities": entities,
-    }
-
-    return content_plan
-
-# Replace "[Keyword]" with your actual target keyword
-target_keyword = "[Keyword]"
-content_plan = generate_content_plan(target_keyword)
-print(content_plan)
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
