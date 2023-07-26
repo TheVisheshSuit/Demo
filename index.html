@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JPG to PNG Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .image-display {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JPG to PNG Converter</h1>
+        <input type="file" id="fileInput" accept=".jpg" />
+        <button onclick="convertImage()">Convert to PNG</button>
+        <div class="image-display">
+            <h3>Converted Image:</h3>
+            <img id="outputImage" />
+        </div>
+    </div>
+
+    <script>
+        function convertImage() {
+            const fileInput = document.getElementById("fileInput");
+            const outputImage = document.getElementById("outputImage");
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    outputImage.src = e.target.result;
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
